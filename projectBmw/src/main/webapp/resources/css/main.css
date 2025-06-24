@@ -1,0 +1,104 @@
+/* --------------------- Global --------------------- */
+body {
+  background: #000;
+}
+
+/* --------------------- Navbar Styles --------------------- */
+#nav1 nav ul li a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+#nav1 nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #0066b1; /* BMW Blue underline */
+  left: 0;
+  bottom: 0;
+  transition: width 0.5s;
+}
+
+
+#nav1 nav ul li a:hover::after {
+  width: 100%;
+}
+
+#nav2 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#nav2 a:hover {
+  color: #0066b1;
+}
+
+/* --------------------- Carousel (Main) --------------------- */
+#carouselExampleDark {
+  height: 500px;
+  overflow: hidden;
+}
+
+#carouselExampleDark .carousel-inner,
+#carouselExampleDark .carousel-item {
+  height: 100%;
+}
+
+#carouselExampleDark video,
+#carouselExampleDark img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Or use "contain" if you prefer no cropping */
+}
+
+/* --------------------- Carousel Cards --------------------- */
+.card {
+  width: 18rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-img-top {
+  height: 150px;
+  object-fit: cover;
+}
+
+/* --------------------- Buttons --------------------- */
+.btn-primary {
+  transition: transform 0.2s ease;
+}
+
+.btn-primary:active {
+  transform: translateX(5px);
+}
+
+/* --------------------- Quote Section --------------------- */
+.display-1 {
+  color: grey;
+}
+
+.display-1:hover {
+  color: #0066b1;
+}
+
+/* --------------------- Optional Background Section --------------------- */
+/*
+#qoute {
+  background-image: url(images/mlogo.png);
+  background-size: cover;
+  background-position: center;
+}
+*/
+
+/* --------------------- Misc --------------------- */
+.nav-link:hover {
+  text-decoration: none !important;
+}

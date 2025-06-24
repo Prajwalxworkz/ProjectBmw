@@ -1,0 +1,24 @@
+ nav ul li a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+ nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #0066b1; /* BMW Blue underline */
+  left: 0;
+  bottom: 0;
+  transition: width 0.5s;
+}
+
+
+nav ul li a:hover::after {
+  width: 100%;
+}
