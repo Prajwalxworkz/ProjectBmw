@@ -36,7 +36,7 @@ body{
       style="position: sticky; top: 0; z-index: 1000;"
     >
       <div class="container-fluid">
-        <a class="navbar-brand" href="<%=request.getContextPath()%>"
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/"
           > <img src="<%=request.getContextPath()%>/resources/images/bmw-motorrad-seeklogo.png" width="250px" alt="..." /></a>
         <button
           class="navbar-toggler"
@@ -61,8 +61,8 @@ body{
           <form class="d-flex">
             <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
             <!-- <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button> -->
-             <a class="btn btn-light" href="<%=request.getContextPath()%>/admin/adminLogin.jsp"
-              ><i class="bi bi-person-check fs-4"></i> &nbsp;Admin</a
+             <a class="btn btn-light" href="<%=request.getContextPath()%>/customer/customerLogin.jsp"
+              ><i class="bi bi-person-check fs-4"></i> &nbsp;User</a
             >
           </form>
         </div>
@@ -70,12 +70,14 @@ body{
     </nav>
   <!-- --------------------------------Card----------------------------------- -->
   <div class="container my-5 ">
-    <c:forEach items="${bikeList}" var="bike">
-        <div class="card border border-primary p-3" style="width: 18rem">
-                  <img src="downloadBikeImage?picture=${bike.getSideView1()}&model=${bike.getModelName()}" class="card-img-top" alt="..." />
+    <c:forEach items="${branchList}" var="branch">
+        <div class="card border border-primary p-3" style="width: 24rem">
+                  <img src="downloadBranchImage?picture=${branch.getBranchPicture()}" class="card-img-top" alt="..." />
                   <div class="card-body">
-                        <p class="h3"><b> ${bike.getModelName()} </b></p> </br>
-                        <p>Ex-Showroom Price: &#8377;${bike.getExShowroomPrice()}</p>
+                        <p class="h3"><b> ${branch.getBranchName()} </b></p> </br>
+                        <p><i class="bi bi-geo-alt-fill fs-2"></i>${branch.getLocation()}, ${branch.getCity()}, ${branch.getPinCode()}</p>
+                        <p><i class="bi bi-telephone-fill"></i> 8792525151</p>
+
                         <a href="#" class="btn btn-primary"><i class="bi bi-arrow-right-circle-fill fs-2"></i></a>
                   </div>
             </div>

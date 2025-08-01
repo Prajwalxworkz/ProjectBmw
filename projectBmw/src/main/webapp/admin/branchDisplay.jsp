@@ -72,7 +72,7 @@ body{
   <div class="container my-5 ">
     <c:forEach items="${branchList}" var="branch">
         <div class="card border border-primary p-3" style="width: 24rem">
-                  <img src="download?picture=${branch.getBranchPicture()}" class="card-img-top" alt="..." />
+                  <img src="downloadBranchImage?picture=${branch.getBranchPicture()}" class="card-img-top" alt="..." />
                   <div class="card-body">
                         <p class="h3"><b> ${branch.getBranchName()} </b></p> </br>
                         <p><i class="bi bi-geo-alt-fill fs-2"></i>${branch.getLocation()}, ${branch.getCity()}, ${branch.getPinCode()}</p>

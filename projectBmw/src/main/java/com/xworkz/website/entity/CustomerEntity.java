@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "customer")
 @NamedQuery(name="getCustomerDetails", query = "select customer from CustomerEntity customer")
+@NamedQuery(name="getCustomerByEmail", query = "select customer from CustomerEntity customer where customer.email=:email")
 public class CustomerEntity {
 
     @Id
@@ -34,5 +36,10 @@ public class CustomerEntity {
     @ManyToOne
     @JoinColumn(name = "bike_to_branch_id", nullable = false)
     private BikeToBranchEntity bikeToBranch;
+    private String password;
+    private int invalidLogInCount;
+    @Column(name = "lastLogIn", columnDefinition = "TIMESTAMP(6)")
+    private Instant lastLogIn;
+    private String profilePicture;
 
 }

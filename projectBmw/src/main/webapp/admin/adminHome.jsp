@@ -116,13 +116,13 @@ body{
        <div class="col-md-3">
         <div class="card shadow rounded-3 p-3 text-center text-white blur-container">
           <h5>Showrooms</h5>
-          <a class="btn btn-primary mt-2" href="bikeBranchList?name=branch">Go</a>
+          <a class="btn btn-primary mt-2" href="getBranchList">Go</a>
         </div>
       </div>
        <div class="col-md-3">
         <div class="card shadow rounded-3 p-3 text-center text-white blur-container">
           <h5>Bikes</h5>
-          <a class="btn btn-primary mt-2" href="bikeBranchList?name=bike">Go</a>
+          <a class="btn btn-primary mt-2" href="getBikeList">Go</a>
         </div>
       </div>
        <div class="col-md-3">

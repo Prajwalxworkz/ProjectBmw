@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 <%@ page isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,15 +16,19 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
   />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/nav.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/nav.css">
   <style>
 body{
-   background-color:#000;
+    background-image: url(<%=request.getContextPath()%>/resources/images/adminHomeBg.webp);
+    background-size: cover;
 }
-
-
-
+.blur-container {
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent */
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(10px); /* for Safari */
+  border-radius: 10px;
+  padding: 20px;
+}
   </style>
 </head>
 <body>
@@ -36,7 +39,7 @@ body{
       style="position: sticky; top: 0; z-index: 1000;"
     >
       <div class="container-fluid">
-        <a class="navbar-brand" href="<%=request.getContextPath()%>"
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/"
           > <img src="<%=request.getContextPath()%>/resources/images/bmw-motorrad-seeklogo.png" width="250px" alt="..." /></a>
         <button
           class="navbar-toggler"
@@ -61,30 +64,37 @@ body{
           <form class="d-flex">
             <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
             <!-- <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button> -->
-             <a class="btn btn-light" href="<%=request.getContextPath()%>/admin/adminLogin.jsp"
-              ><i class="bi bi-person-check fs-4"></i> &nbsp;Admin</a
+             <a class="btn btn-light" href="<%=request.getContextPath()%>/customer/customerLogin.jsp"
+              ><i class="bi bi-person-check fs-4"></i> &nbsp;User</a
             >
           </form>
         </div>
       </div>
     </nav>
-  <!-- --------------------------------Card----------------------------------- -->
-  <div class="container my-5 ">
-    <c:forEach items="${bikeList}" var="bike">
-        <div class="card border border-primary p-3" style="width: 18rem">
-                  <img src="downloadBikeImage?picture=${bike.getSideView1()}&model=${bike.getModelName()}" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                        <p class="h3"><b> ${bike.getModelName()} </b></p> </br>
-                        <p>Ex-Showroom Price: &#8377;${bike.getExShowroomPrice()}</p>
-                        <a href="#" class="btn btn-primary"><i class="bi bi-arrow-right-circle-fill fs-2"></i></a>
-                  </div>
-            </div>
-    </c:forEach>
+
+  <!-- --------------------------------Dash bord-------------------------------------->
+  <div class="container mt-5">
+    <div class="row g-4">
+       <div class="col-md-3">
+        <div class="card shadow rounded-3 p-3 text-center text-white blur-container">
+          <h5>Showrooms</h5>
+          <a class="btn btn-primary mt-2" href="getBranchList">Go</a>
+        </div>
+      </div>
+       <div class="col-md-3">
+        <div class="card shadow rounded-3 p-3 text-center text-white blur-container">
+          <h5>Bikes</h5>
+          <a class="btn btn-primary mt-2" href="getBikeList">Go</a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- --------------------------------End----------------------------------- -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
 </body>
 </html>

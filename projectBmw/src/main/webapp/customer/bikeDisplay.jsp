@@ -36,7 +36,7 @@ body{
       style="position: sticky; top: 0; z-index: 1000;"
     >
       <div class="container-fluid">
-        <a class="navbar-brand" href="<%=request.getContextPath()%>"
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/"
           > <img src="<%=request.getContextPath()%>/resources/images/bmw-motorrad-seeklogo.png" width="250px" alt="..." /></a>
         <button
           class="navbar-toggler"
@@ -61,8 +61,8 @@ body{
           <form class="d-flex">
             <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
             <!-- <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button> -->
-             <a class="btn btn-light" href="<%=request.getContextPath()%>/admin/adminLogin.jsp"
-              ><i class="bi bi-person-check fs-4"></i> &nbsp;Admin</a
+             <a class="btn btn-light" href="<%=request.getContextPath()%>/customer/customerLogin.jsp"
+              ><i class="bi bi-person-check fs-4"></i> &nbsp;User</a
             >
           </form>
         </div>

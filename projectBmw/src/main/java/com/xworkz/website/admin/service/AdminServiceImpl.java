@@ -7,6 +7,7 @@ import com.xworkz.website.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -26,6 +27,13 @@ public class AdminServiceImpl implements AdminServiceIntf{
 
     @Autowired
     HttpSession session;
+
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public AdminServiceImpl(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public boolean handleOtpRequest(String email) {
@@ -142,7 +150,23 @@ public class AdminServiceImpl implements AdminServiceIntf{
         CustomerEntity entity = new CustomerEntity();
         entity.setBikeToBranch(repository.findBikeToBranchById(dto.getBikeId()));
         BeanUtils.copyProperties(dto, entity);
+        String password=generatedPassword();
+        entity.setPassword(passwordEncoder.encode(password));
+        sendGeneratedPassword(dto, password);
+        entity.setLastLogIn(null);
+        entity.setInvalidLogInCount(-1);
        return repository.saveCustomer(entity);
+    }
+
+    private String generatedPassword() {
+        String validCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*-=_+";
+        Random random=new Random();
+        StringBuilder stringBuilder=new StringBuilder();
+        while(stringBuilder.length()<13){
+            int index=random.nextInt(validCharacters.length());
+            stringBuilder.append(validCharacters.charAt(index));
+        }
+        return stringBuilder.toString();
     }
 
     @Override
@@ -236,6 +260,46 @@ public class AdminServiceImpl implements AdminServiceIntf{
                     + "\n\nUse the code below to continue - it's valid for 2 minutes:\n" +otp );
 
             System.out.println("Otp : "+otp);
+
+
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    private void sendGeneratedPassword(CustomerDto dto, String generatedPassword) {
+        final String username = "prajwal.xworkz@gmail.com";
+        final String password = "uhvk fzkx chqt zweg";
+
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(prop,
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(dto.getEmail())
+            );
+            message.setSubject(generatedPassword+" is your auto-generated password");
+            message.setText("Hi "+dto.getFullName()+","
+                    + "\n\nUse the auto-generated password below to login to your account.\n" +generatedPassword
+                    +"\n\nYou can reset this password by clicking on the forgot password option on the User login page." );
+
+            System.out.println("Auto-generated Password : "+generatedPassword);
 
 
             Transport.send(message);

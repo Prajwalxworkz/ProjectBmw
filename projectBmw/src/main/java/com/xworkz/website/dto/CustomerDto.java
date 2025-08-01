@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -37,5 +38,9 @@ public class CustomerDto {
     private String modelName;
     private String branchName;
     private Long bikeId;
+    private String password;
+    private String confirmPassword;
+    private String profilePicture;
+    private MultipartFile multipartFile;
 
 }

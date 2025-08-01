@@ -1,6 +1,5 @@
 package com.xworkz.website.admin.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import com.xworkz.website.admin.constants.Schedule;
 import com.xworkz.website.admin.service.AdminServiceIntf;
 import com.xworkz.website.dto.*;
@@ -8,14 +7,12 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -129,7 +126,7 @@ public class MvcController {
     }
 
 
-    @GetMapping("bikeBranchList")
+  /*  @GetMapping("bikeBranchList")
     public String getBikeBranchList(Model model, String name){
         System.out.println("getBikeBranchList in controller start");
         List<BranchDto> branchDtoList=service.getAllBranches();
@@ -146,6 +143,42 @@ public class MvcController {
             return "redirect:/admin/bikeBranchList";
         }
     }
+
+   */
+
+
+    public List<BranchDto> getBranchList(){
+        return service.getAllBranches();
+    }
+
+    @GetMapping("getBranchList")
+    public String getBranchList(Model model){
+        List<BranchDto> branchDtoList=getBranchList();
+        if(branchDtoList!=null) {
+            model.addAttribute("branchList", branchDtoList);
+            return "admin/branchDisplay";
+        }else{
+            model.addAttribute("Branch list is empty");
+            return "admin/branchDisplay";
+        }
+    }
+
+    public List<BikeDto> getBikeList(){
+        return service.getAllBikes();
+    }
+
+    @GetMapping("getBikeList")
+    public String getBikeList(Model model){
+        List<BikeDto> bikeDtoList=getBikeList();
+        if(bikeDtoList!=null) {
+            model.addAttribute("bikeList", bikeDtoList);
+            return "admin/bikeDisplay";
+        }else{
+            model.addAttribute("Branch list is empty");
+            return "admin/bikeDisplay";
+        }
+    }
+
 
     @PostMapping("/bikeToBranch")
     public String assignBikeToBranch(BikeToBranchDto dto, Model model) {
@@ -242,15 +275,30 @@ public class MvcController {
      }
     }
 
-    @GetMapping("download")
-    public void downloadImage(HttpServletResponse response, @RequestParam String picture,@RequestParam String model) {
-        File file;
-      if(picture!=null && model!=null) {
-          file = new File("C:\\Users\\Legion\\Documents\\project_image_uploads\\bike_images\\"+model+"\\"+picture);
-      }else{
-          file = new File("C:\\Users\\Legion\\Documents\\project_image_uploads\\showroom_images\\"+picture);
-      }
 
+
+
+
+    @GetMapping("downloadBikeImage")
+    public void downloadBikeImage(HttpServletResponse response, @RequestParam String picture,@RequestParam String model) {
+        File file;
+        file = new File("C:\\Users\\Legion\\Documents\\project_image_uploads\\bike_images\\" + model + "\\" + picture);
+        String contentType = getContentTypeFromExtension(picture);
+        response.setContentType(contentType);
+
+        try {
+            InputStream input = new BufferedInputStream(new FileInputStream(file));
+            ServletOutputStream output = response.getOutputStream();
+            IOUtils.copy(input, output);
+            response.flushBuffer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @GetMapping("downloadBranchImage")
+    public void downloadBranchImage(HttpServletResponse response, @RequestParam String picture) {
+        File file;
+        file = new File("C:\\Users\\Legion\\Documents\\project_image_uploads\\showroom_images\\"+picture);
         String contentType = getContentTypeFromExtension(picture);
         response.setContentType(contentType);
 
@@ -268,8 +316,7 @@ public class MvcController {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         switch (extension) {
             case "jpg":
-            case "jpeg":
-                return "image/jpeg";
+                return "image/jpg";
             case "png":
                 return "image/png";
             case "gif":

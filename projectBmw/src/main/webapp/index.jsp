@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
   </head>
   <body>
-    <!-- --------------------------------Navbar-------------------------------------- -->
+    <!-- --------------------------------Navbar1-------------------------------------- -->
 <div id="nav1">
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0; z-index: 1000;">
     <div class="container-fluid">
@@ -156,7 +156,7 @@
       <a class="nav-link" href="#"><i class="bi bi-tools"></i>&nbsp;&nbsp;Service</a>
     </li>-->
      <li class="nav-item">
-          <a class="nav-link" href="#"><i class="bi bi-person fs-4 "></i>&nbsp;&nbsp;User</a>
+          <a class="nav-link" href="<%=request.getContextPath()%>/customer/customerLogin.jsp"><i class="bi bi-person fs-4 "></i>&nbsp;&nbsp;User</a>
      </li>
   </ul>
 </div>
